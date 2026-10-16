@@ -1,6 +1,8 @@
 # Power Annotate: HTML Audio and Study Reader
 
-`power_annotate` (formerly `html_aud`) is an agent skill that turns a scholarly article into a **single, standalone HTML file** you can listen to, annotate, and study from. It needs no server, no accounts, and no external runtime dependencies. Open the file in Edge or Chrome and it works.
+Power Annotate is an open-source tool that turns a research article into a single HTML file you can listen to, annotate, and study from. Open the file in Chrome or Edge and it reads the paper aloud without interruption from DOI links or journal data. Additionally, you can switch to "Figure-Study" view, which places figures next to the corresponding references in the text. You can add sticky notes and drawings, and your annotations save back into the file. It also has a button that opens a Google Doc pre-structured for notes on that specific paper. Notably, you can both automatically generate and manually build Anki cloze deletion cards, export them as TSV, and import them into Anki. Additionally, it has a setting that learns from how you edit the automatically generated Anki cards, so you can update the skill in ChatGPT to make auto-card generation better match your style. It runs without a server or account, and it keeps the article's text and figure order intact. See [Usage](#usage) below to get started.
+
+Technically, it is an agent skill (`power_annotate`, formerly `html_aud`) that outputs a standalone HTML file with no external runtime dependencies.
 
 ## Screenshots
 
@@ -11,6 +13,10 @@
 **Annotation tools**
 
 ![Annotate and study sidebar with tool and color pickers, sticky notes, export and import](docs/screenshots/annotation-sidebar.png)
+
+**Figure-study view**
+
+![Figure-study view with the sentence citing Figure 1B and its legend excerpt on the left and the matching panel screenshot on the right](docs/screenshots/figure-study-view.png)
 
 **Anki card editor**
 
