@@ -17,7 +17,7 @@ Create MCAT Anki cloze-deletion flashcards using these rules:
 13. When useful, cloze numerical values, units, conditions, exceptions and causal relationships separately.
 14. Export Anki-compatible TSV with Text, Extra and Tags fields.
 15. Put brief explanations, clarifications and important exceptions in Extra.
-16. Use consistent subsection-specific tags.
+16. Use the article title as the tag (latest user preference); replace whitespace with underscores so Anki treats it as one tag.
 17. Preserve real line breaks when needed and avoid unnecessary HTML. Quote multiline/tab-containing TSV fields and escape quotes correctly.
 
 Example from the user: {{c1::Trigonal planar}} orbital geometry with {{c2::1::how many?}} {{c4::lone pair}} on central atom gives molecular geometry {{c3::Bent}}.

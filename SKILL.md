@@ -1,6 +1,6 @@
 ---
-name: html_aud
-description: Create standalone scholarly HTML audio readers with speech-synchronized word and paragraph highlighting, pinned sticky notes, multicolor drawing tools, portable saved annotations, figure-study layouts, reading progress and an editable Anki cloze sidebar. Use for /html_aud and article listening/study requests.
+name: power_annotate
+description: Create standalone scholarly HTML audio readers with speech-synchronized word and paragraph highlighting, pinned sticky notes, multicolor drawing tools, portable saved annotations, figure-study layouts, reading progress and an editable Anki cloze sidebar. Use for /power_annotate and article listening/study requests.
 ---
 
 # HTML audio and study reader
@@ -32,8 +32,55 @@ Offer a two-column study view: the exact source sentence citing a panel plus the
 
 ## Anki sidebar
 
-Read [MCAT cloze requirements](references/mcat-cloze-rules.md) when creating/reviewing cards. These user rules take precedence over other Anki defaults. Select a sentence or an essential term, create a source-linked draft, and edit Text, Extra and Tags in a toggleable right sidebar. A selected term can become c1 while the source sentence stays visible. Sentence selections open editable drafts; the user selects essential terms rather than hiding an entire sentence. Subsequent independent terms get c2, c3 etc.; numbering restarts for every note. Keep offline draft assistance distinct from AI-based factual/MCAT review. Export validated notes as Anki-compatible TSV with three fields, proper multiline quoting, actual line breaks where needed, and no unnecessary HTML. Incomplete drafts are retained but skipped from export with a visible count.
+Read [MCAT cloze requirements](references/mcat-cloze-rules.md) when creating/reviewing cards. These user rules take precedence over other Anki defaults. Select a sentence or an essential term, create a source-linked draft, and edit Text, Extra and Tags in a toggleable right sidebar. Automatically create targeted cloze suggestions for every sentence in the selected section; preserve source wording and surrounding context, never cloze an entire sentence. Keep all suggestions editable for accuracy and MCAT relevance. Use the article title as a single Anki tag, replacing whitespace with underscores. A short selected term retains its source-sentence context. Subsequent independent terms get c2, c3 etc.; numbering restarts for every note. Keep offline draft assistance distinct from AI-based factual/MCAT review. Export validated notes as Anki-compatible TSV with three fields, proper multiline quoting, actual line breaks where needed, and no unnecessary HTML. Incomplete drafts are retained but skipped from export with a visible count.
 
 ## Verify
 
 Check article text and block identities before/after upgrade, images, figures at end, word/paragraph highlighting and controls. Test note add/edit/delete/pin/drag, shapes and eraser, persistence, import validation, direct HTML snapshots and reopening in a fresh document. Test section progress, two-column rows, panel cropping/legend edits, cloze syntax/numbering, TSV escaping and Unicode. Use DOM interaction tests for state logic when browser access is unavailable; do not claim those establish visual rendering, real voice timing or actual browser file permissions. Prefer Edge or Chrome. Return reader paths and brief save instructions; do not upload to external services without authorization.
+
+## Four reader refinements
+
+- Offer an explicit Post-it mode: clicking anywhere on the active text/figure-study surface opens a blank sticky note at that position, with the text box focused.
+- Apply the same pencil, shapes, eraser, sticky notes and text highlighting to figure-study view. Store study annotations with stable row/quote/image identifiers, so rebuilding the view and reopening saved HTML retain their anchors. Switching views must not relocate article annotations.
+- Show a text-only reading-time estimate alongside the speed control. Exclude figure captions, reference lists, headings and original page images; update immediately with speech speed. Label it approximate (180 words/minute at 1× by default), not an exact measured audio duration.
+- Selection → Anki automatically proposes source-faithful clozes for each selected sentence, starting c1 in each note and using the article-title tag. Local suggestions use deterministic concept/entity selection rather than a remote AI call; they remain editable and need review. Keep the existing layout and other behavior unchanged when applying these refinements.
+
+## Anki library and quick-reference tools
+
+The Anki cards button opens a persistent scrollable library, with previews of saved cards and drafts; clicking a card opens a separate editor. Include Text, Extra and article-title Tags fields, cloze-term insertion, Save card, Back to cards and Delete card. Save card validates a c1 cloze, persists the card, closes the editor and shows the card in the library. Keep draft edits automatically; export saved cards with valid clozes. Add creates a blank editable draft. Selection → Anki stays available. A separate Automatically generate action produces deduplicated editable cloze drafts from the current section or whole article with a configurable batch limit. Do not silently replace or delete existing cards.
+
+On saving a card or generating a batch, celebrate with lavender/aqua/pink heart confetti and the messages Way to Go! and Knowledge is Power. Keep the overlay brief and noninteractive, respect reduced-motion preferences, and preserve the existing reading layout.
+
+Provide an Original PDF toggle to glance at the source while preserving the active article/figure-study mode. Embed the actual source PDF when available using `python scripts/add_annotations.py --pdf SOURCE.pdf READER.html`. A local file chooser is the fallback for readers without an embedded PDF. Do not reconstruct a PDF and label it original. Keep the original PDF data in portable saved HTML snapshots.
+
+The Add sticky note button toggles persistent placement mode: after enabling it, click anywhere on the active text or figure-study surface to open a note at that position. Saving one note keeps placement mode active for the next. Show the active state, allow switching back to reading, and keep all notes separately anchored and editable.
+
+## Google Docs article-notes button (always available)
+
+Every new reader and upgraded reader must include a visible **New Google Doc notes** button by default, even when no native Google Docs template has been created. Keep it in portable saved HTML. Do not hide the button behind a pre-existing template link or require a separate request for this feature.
+
+Default behavior is on-click generation: build the article-specific notes template locally, copy rich text (with plain-text fallback), and open a new Google Doc in a separate tab with noopener/noreferrer. Tell the user to paste once in Google Docs. If clipboard access fails, show the generated template in a selectable dialog with Copy template and Open Google Docs controls. Do not claim the standalone HTML directly creates or populates authenticated Google Docs, and do not embed credentials or tokens. Do not create remote templates in advance for this default flow.
+
+Include the verified full bibliographic citation (authors, year, full title, journal, volume, and pages/article number), a separate DOI link, Abstract, Introduction, one section per actual figure using the verified caption title, Discussion, and Additional. Embed article-specific metadata in `<script id="article-notes-template" type="application/json">`; escape `<` in JSON. Both builders and `add_annotations.py` provide a metadata fallback from the reader, but verify citation completeness and figure headings from the source before delivery. Never invent missing citation details or reuse another paper's metadata.
+
+If the user explicitly requests a native Google Docs template or provides one, use connected Google Drive/Docs tools to create or verify it and preserve its privacy/permissions. An optional verified `<link id="google-notes-template" href="https://docs.google.com/document/d/VERIFIED_ID/copy">` makes the same button open Google's Make a copy flow instead of clipboard generation. Do not hardcode a per-article template in reusable scripts. Explain the Make a copy step and verify document headings by connector readback.
+
+## Control contrast
+
+Use explicit foreground/background pairs for **Figure-study view** and **Original PDF** in both light and dark themes: white text on dark blue (`#16324f`) with visible borders and keyboard focus. The bundled styles target at least 7:1 text contrast; check enabled/checked states as well. Give the Google Docs notes button an explicit high-contrast pair, and keep notices and the template dialog readable across color schemes. Do not rely on inherited text colors over pale control backgrounds.
+
+Verify the button is present without a native-template link, click-generated content has the correct citation and all actual figure headings, clipboard fallback is available, and saved HTML restores exactly one button/dialog with metadata intact. Test contrast in light and dark modes. Mock clipboard and new-tab creation in automated tests so they do not alter the user's clipboard or create Google Docs merely to test the reader.
+
+## Learned preferences within Anki cards
+
+Always include a **Learned preferences** button inside the Anki cards panel. Its view must show the exact note: "update the skill with this to get better card performance". Include before/after edit examples, counts of distinct edited cards, a learning switch, per-preference disable/delete controls, reset, copyable skill-update report, and JSON export. These records are local card-edit history, not chat logs; copying a report does not modify the skill automatically.
+
+Record comparisons only when the user successfully saves an edited card. Preserve an original suggestion or editing baseline across drafts/reloads; unchanged saves and repeated saves of one card must not inflate evidence. Require at least three distinct edited cards before applying a style preference. Shorter clozes and fewer deletions may guide future local suggestions; hint and Extra patterns are recorded for review, without fabricating content. Keep source wording, source links, c1 numbering, and the user's MCAT rules. Scientific wording changes are labeled for source review and must not become generalized factual rules. Existing cards remain untouched. Disabling learning stops new observations and learned generation adjustments.
+
+Keep evidence, controls, and the profile in browser storage and portable saved HTML. Do not claim cross-reader or cross-browser sharing unless explicitly implemented. Preserve notes/cards when resetting learning. Verify threshold counts, unchanged saves, disabled learning, scientific edits, and fresh-session saved-file restoration.
+
+## Reading layout and annotation sidebar
+
+Keep the reading portion's controls at the top: playback and section selection stay visible, with voice, speed and other reading options in an expandable Reading settings group. Put annotation tools, colors, sticky-note actions, study toggles, save/export actions, Google Docs notes, and the Anki cards launcher in a collapsible right sidebar. The article should occupy most of the remaining reading area, with a compact contents column. Avoid a tall top toolbar that obscures the text while scrolling. The right sidebar scrolls independently; Anki cards uses that same side of the page without stacking overlapping panels. On narrow screens, start the tools collapsed and allow opening them as a side drawer.
+
+Preserve article block order, note/drawing anchors, existing saved cards, and browser storage keys when changing layout. Save sidebar state in portable HTML. Remove generated sidebar/group containers and unwrap original reading controls when serializing so reopening does not duplicate controls or lose voice/speed settings. Verify desktop/mobile layout, reading controls, note placement, figure-study and PDF toggles, the Anki/preferences panel, and saved-file restoration.

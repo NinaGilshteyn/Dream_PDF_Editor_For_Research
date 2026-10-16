@@ -1,2 +1,91 @@
 :root{--accent:#7762b5;--active:#d9f5eb;--bg:#f5f2fc;--line:#d8cdec}body{background:linear-gradient(120deg,#f6f0fc,#eefbf8 65%,#fff1f7)}.toolbar{background:#faf7ffeb;backdrop-filter:blur(12px)}button.primary{background:#8c74c6}.toolbar button:hover{background:#d9f4ef;color:#302345}#study-tools{max-width:1100px;margin:8px auto 0;display:flex;align-items:center;flex-wrap:wrap;gap:8px}#study-status{font-size:12px;color:#59436d}.switch{background:#f6e1f0;padding:8px;border-radius:8px}#study-pins{position:absolute;inset:0;pointer-events:none;z-index:4}.note-pin{position:absolute;pointer-events:auto;background:#fff2a8;border:2px solid #d29bc2;box-shadow:2px 3px 7px #0002;font-size:20px;padding:3px 9px;transform:translateX(-50%)}#reading-progress{background:#ece3fa;padding:12px;border-radius:10px;margin-bottom:12px;font-size:12px}#reading-progress progress{display:block;height:9px;margin:10px 0;accent-color:#60bfa9}nav a.reading-current{background:#d7f4ef;border-left:4px solid #60bfa9;font-weight:750;color:#40325c;padding-left:8px}nav a.reading-done::after{content:' ✓';color:#559e7a}#figure-bank{border-top:3px solid #c6afe5;margin-top:45px;padding-top:20px}#anki-panel{position:fixed;right:0;top:0;bottom:0;z-index:12;width:min(450px,95vw);overflow:auto;background:#faf3fb;padding:20px;border-left:3px solid #c6afe5;box-shadow:-8px 0 25px #30234522}.panel-title{display:flex;justify-content:space-between;align-items:center}.anki-card{background:white;border:1px solid #d7c9e9;border-radius:10px;padding:12px;margin:15px 0}.anki-card p{font-size:12px;color:#645474}.anki-card textarea,.anki-card input{display:block;width:100%;margin:8px 0;font:14px/1.5 system-ui;padding:9px;border:1px solid #cbb9e0;border-radius:5px}.anki-card button{font-size:12px;margin:3px}.anki-open .layout{margin-right:460px}.figure-mode main.layout{display:none}#figure-study{max-width:1250px;margin:25px auto;padding:25px}.study-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:25px 0;background:white;padding:24px;border:1px solid #dac9ed;border-radius:14px;box-shadow:0 7px 20px #725b9020}.study-row img{max-width:100%;height:auto}.study-row textarea{width:100%;font:15px/1.6 Georgia;padding:12px;border:1px solid #9bcec4;background:#f1fcf8}.study-row blockquote{margin:16px 0;font:18px/1.7 Georgia}.study-row strong{color:#7762b5}#study-crop{max-width:96vw}#study-crop canvas{display:block;max-width:100%;touch-action:none;cursor:crosshair}#ann-dialog{background:#fff6bd;color:#302a3b}#ann-dialog textarea{background:#fffbea}@media(max-width:1000px){.anki-open .layout{margin-right:auto}.study-row{grid-template-columns:1fr}}@media(prefers-color-scheme:dark){:root{--bg:#241e2e;--paper:#30283b;--ink:#eee5f7;--sub:#c9badb;--line:#594966;--accent:#c4a8f0;--active:#294f46}body{background:#241e2e}.toolbar{background:#30283bf2}#study-status{color:#d4bceb}#anki-panel,.study-row,.anki-card{background:#30283b;color:#eee5f7}nav a.reading-current{background:#294f46;color:#d5c4f2}#reading-progress{background:#49375e}.study-row textarea{background:#243d36;color:#e4f6ef}}@media print{#study-tools,#study-pins,#anki-panel{display:none}}
 nav{top:calc(var(--toolbar-height,230px) + 10px)}html{scroll-padding-top:calc(var(--toolbar-height,230px) + 20px)}
+
+.anki-actions{display:flex;flex-wrap:wrap;gap:7px;margin:12px 0}#anki-panel>label{margin:8px 0}#anki-limit{width:75px}#anki-list{overflow:auto;max-height:calc(100vh - 310px);padding-bottom:20px;overscroll-behavior:contain}.anki-card-preview{display:block;width:100%;border:0;text-align:left;background:transparent;overflow-wrap:anywhere}.anki-card-preview small{display:block;overflow-wrap:anywhere}#anki-editor{width:min(720px,95vw);max-height:90vh;overflow:auto;background:var(--paper);color:var(--ink);border:2px solid #c6afe5}#anki-editor textarea,#anki-editor input{display:block;width:100%;margin:7px 0 15px;font:16px/1.6 system-ui;padding:10px}#anki-editor-source{max-height:100px;overflow:auto;font-size:13px;color:var(--sub)}#anki-editor-status{font-size:13px}#raw-pdf-view{max-width:1250px;margin:20px auto;padding:20px}#raw-pdf-view iframe{width:100%;height:80vh;display:block;border:1px solid #c6afe5;margin-top:15px}.raw-pdf-mode main.layout,.raw-pdf-mode #figure-study,.raw-pdf-mode #annotation-notes{display:none!important}#anki-celebration{position:fixed;inset:0;pointer-events:none;z-index:50;overflow:hidden}.celebrate-message{position:absolute;top:18%;left:50%;transform:translateX(-50%);background:#fbf2ff;color:#705299;border:2px solid #e8a8cb;border-radius:18px;padding:18px 28px;font:700 24px system-ui;box-shadow:0 8px 30px #6f518533;text-align:center;max-width:90vw}.confetti-heart{position:absolute;top:-10%;font-size:30px;animation:heart-fall 2.5s ease-in forwards}@keyframes heart-fall{to{transform:translate(var(--heart-drift),115vh) rotate(300deg);opacity:0}}@media(prefers-reduced-motion:reduce){.confetti-heart{display:none}}button[aria-pressed="true"]{background:#e6d9f5;border-color:#9c7cc6}
+
+
+
+/* Explicit foreground/background pairs remain readable in light and dark themes. */
+
+#study-tools label.switch{background:#16324f!important;color:#ffffff!important;border:2px solid #597f9f;padding:9px 12px;border-radius:8px;font-weight:650;opacity:1!important;cursor:pointer}
+
+#study-tools label.switch:has(input:checked){background:#102a43!important;border-color:#2dd4bf}
+
+#study-tools label.switch input{accent-color:#2dd4bf;width:18px;height:18px;flex:0 0 auto}
+
+#study-tools label.switch:focus-within{outline:3px solid #c084fc;outline-offset:3px}
+
+.source-notice,.missing-image{color:#102a43!important;background:#eee8fb!important}
+
+#google-notes-open{background:#4c1d95!important;color:#ffffff!important;border:2px solid #8b5cf6;font-weight:650;opacity:1!important}
+
+#google-notes-open:hover,#google-notes-open:focus-visible{background:#35136b!important;color:#ffffff!important;outline:3px solid #2dd4bf;outline-offset:2px}
+
+#google-notes-dialog{width:min(850px,94vw);background:#ffffff!important;color:#102a43!important;border:2px solid #4c1d95}
+
+#google-notes-dialog textarea{box-sizing:border-box;display:block;width:100%;min-height:280px;background:#ffffff;color:#102a43;border:2px solid #597f9f;border-radius:6px;padding:14px;font:15px/1.6 system-ui}
+
+#google-notes-dialog p{font:15px/1.6 system-ui;color:#102a43!important}
+
+#google-notes-dialog button{background:#16324f!important;color:#ffffff!important;border:2px solid #597f9f}
+
+.google-notes-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+
+
+#anki-preference-view{color:#102a43;background:#f4efff;padding:14px;border:1px solid #9b83c8;border-radius:10px}
+#anki-preference-view[hidden]{display:none}
+#anki-panel > [hidden]{display:none!important}
+#anki-preference-view button{color:#fff!important;background:#16324f!important;border:1px solid #597f9f;margin:4px;padding:8px}
+#anki-preference-view p,#anki-preference-view label{color:#102a43!important;line-height:1.5}
+#anki-preference-view .learning-skill-note{font-weight:700;background:#d7f4ef;padding:12px;border-left:4px solid #4c1d95}
+#anki-preference-view pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 system-ui;background:white;color:#102a43;padding:10px}
+#anki-preference-view .learning-pattern{padding:10px 0;border-bottom:1px solid #c3b3db}
+#anki-preference-view textarea{width:100%;min-height:200px;background:white;color:#102a43}
+#anki-preferences{background:#4c1d95!important;color:white!important;border:2px solid #8b5cf6}
+
+/* Desktop: broad reading column, compact contents, independent tools on the right. */
+:root{--reader-side-width:300px}
+body.reader-tools-open{padding-right:calc(var(--reader-side-width) + 16px)}
+header{max-width:1180px;padding:18px 24px 10px}
+.toolbar{padding:9px 18px}
+.controls{max-width:1180px;gap:7px}
+.controls>button,.controls>label select{padding:7px 10px;font-size:14px}
+.controls #section{max-width:min(340px,35vw)}
+#status{font-size:12px;margin:1px 0;line-height:1.35}
+.controls>progress{height:3px}
+.layout{max-width:1320px;margin:20px auto;padding:0 20px;grid-template-columns:160px minmax(0,1fr);gap:20px}
+.layout article{padding:28px 34px}
+.layout nav{top:calc(var(--toolbar-height,115px) + 16px);max-height:calc(100vh - var(--toolbar-height,115px) - 36px)}
+html{scroll-padding-top:calc(var(--toolbar-height,115px) + 20px)}
+#reader-sidebar{position:fixed;right:0;top:0;bottom:0;z-index:8;width:var(--reader-side-width);overflow-y:auto;overscroll-behavior:contain;padding:16px;background:var(--paper);color:var(--ink);border-left:2px solid var(--line);box-shadow:-3px 0 16px #30234514}
+#reader-sidebar[hidden]{display:none!important}
+.reader-sidebar-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.reader-sidebar-head h2{font:700 19px/1.3 system-ui;margin:0}
+#reader-sidebar h3{font:650 15px/1.3 system-ui;margin:22px 0 8px}
+#reader-sidebar #annotation-tools,#reader-sidebar #study-tools{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin:0;max-width:none;padding:0;border:0;font-size:13px}
+#reader-sidebar #annotation-tools>strong{display:none}
+#reader-sidebar #annotation-tools>label{display:flex;justify-content:space-between;gap:8px}
+#reader-sidebar button,#reader-sidebar select{font-size:13px;max-width:100%;white-space:normal;overflow-wrap:anywhere}
+#reader-sidebar select{min-width:0;max-width:190px}
+#reader-sidebar #study-tools .switch{justify-content:flex-start}
+#reader-sidebar #ann-status,#reader-sidebar #study-status{font:12px/1.5 system-ui}
+#reader-sidebar #annotation-notes{margin:18px 0 0;padding:0}
+#reader-sidebar #annotation-notes h2{font-size:16px;margin:18px 0 8px}
+#reader-sidebar #ann-cards{display:block}
+#reader-sidebar .ann-card{margin:12px 0;padding:10px}
+#reader-settings{font-size:13px;border:1px solid var(--line);border-radius:7px;padding:7px 10px}
+#reader-settings summary,#reader-help summary{cursor:pointer;font:600 13px/1.4 system-ui;color:var(--ink);padding:0}
+#reader-settings[open]{flex-basis:100%}
+.reader-setting-fields{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:10px 0 0}
+.reader-setting-fields label{font-size:13px}
+.reader-setting-fields #voice{max-width:320px}
+#reader-help{max-width:1180px;margin:4px auto 0}
+#reader-help .hint{margin:8px 0 0;font-size:12px}
+#figure-study,#raw-pdf-view{max-width:1320px;margin:20px auto;padding:20px}
+body.anki-open{--reader-side-width:400px;padding-right:416px}
+.anki-open #reader-sidebar{visibility:hidden;pointer-events:none}
+.anki-open .layout{margin-right:auto}
+#anki-panel{width:min(400px,96vw)}
+@media(max-width:1099px){body.reader-tools-open,body.anki-open{padding-right:0}.layout{grid-template-columns:130px minmax(0,1fr);gap:16px;padding:0 14px}.layout article{padding:24px}#reader-sidebar{width:min(310px,92vw);z-index:11}.controls #section{max-width:240px}}
+@media(max-width:760px){.layout{display:block}.layout nav{position:static;max-height:140px;margin-bottom:16px}.toolbar{position:relative;padding:9px 12px}.controls #section{max-width:210px}.layout article{padding:22px}.reader-setting-fields #voice{max-width:250px}}
+@media print{body.reader-tools-open,body.anki-open{padding-right:0}#reader-sidebar,#reader-sidebar-toggle,#reader-settings,#reader-help{display:none!important}.layout{display:block;max-width:none;padding:0}.layout article{padding:0}}
