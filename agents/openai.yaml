@@ -1,0 +1,4 @@
+interface:
+  display_name: "HTML Audio Reader"
+  short_description: "Article audio with word and paragraph highlighting"
+  default_prompt: "Use $html_aud to turn this article into an HTML audio reader."
