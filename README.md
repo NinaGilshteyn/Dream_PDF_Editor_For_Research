@@ -2,6 +2,20 @@
 
 `power_annotate` (formerly `html_aud`) is an agent skill that turns a scholarly article into a **single, standalone HTML file** you can listen to, annotate, and study from. It needs no server, no accounts, and no external runtime dependencies. Open the file in Edge or Chrome and it works.
 
+## Screenshots
+
+**Reader with the Annotate & study sidebar**
+
+![Power Annotate reader showing playback controls, reading settings, contents progress and the study and save sidebar](docs/screenshots/reader-overview.png)
+
+**Annotation tools**
+
+![Annotate and study sidebar with tool and color pickers, sticky notes, export and import](docs/screenshots/annotation-sidebar.png)
+
+**Anki card editor**
+
+![Edit Anki card dialog with a cloze-numbered Text field, Extra, and an article-title tag](docs/screenshots/anki-card-editor.png)
+
 ## Features
 
 ### Listen
