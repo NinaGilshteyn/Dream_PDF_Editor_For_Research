@@ -13,7 +13,17 @@ dialog{max-width:96vw;max-height:96vh;padding:16px;border:1px solid #888;border-
 (()=>{'use strict';const $=id=>document.getElementById(id),synth=window.speechSynthesis;let voices=[],queue=[],idx=0,running=false,paused=false,token=0,current=null,utterance=null;const blocks=[...document.querySelectorAll('.readable')];
 
 
-function mappedText(el){let text='',map=[];const walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let n;while(n=walk.nextNode()){if(n.parentElement.closest('[data-citation]'))continue;for(let i=0;i<n.length;i++){const c=n.data[i];if(/\s/.test(c)){if(text&&!text.endsWith(' ')){text+=' ';map.push([n,i])}}else{text+=c;map.push([n,i])}}}if(text.endsWith(' ')){text=text.slice(0,-1);map.pop()}return {text,map}}
+function narrationWithoutCitations(text,map){
+ const spans=[];const year='(?:18|19|20)\\d{2}[a-z]?';
+ const author="(?:[\\p{Lu}][\\p{L}’'\\-]*|[A-Z]\\.|et|al|and|van|von|de|del|der|di|da|du|la|le|Jr|Sr)";
+ const authorYear=new RegExp("^"+author+"[\\p{L}\\p{M}\\d\\s.,;&’'\\-–]*"+year+"[\\p{L}\\d\\s.,;&’'\\-–]*$","u");
+ const validAuthors=s=>{const words=s.replace(new RegExp(year,'g'),'').match(/[\p{L}’'\-]+/gu)||[];return words.every(w=>/^\p{Lu}/u.test(w)||/^(?:et|al|and|van|von|de|del|der|di|da|du|la|le)$/u.test(w))};
+ for(const m of text.matchAll(/\([^()]*\)|\[[^\[\]]*\]/g)){const inner=m[0].slice(1,-1).trim();if((authorYear.test(inner)&&validAuthors(inner))||(/^\[/.test(m[0])&&/^\d+(?:\s*[,;–-]\s*\d+)*$/.test(inner)))spans.push([m.index,m.index+m[0].length])}
+ const narrative=new RegExp("\\b[\\p{Lu}][\\p{L}’'\\-]*(?:\\s+(?:van|von|de|del|der|di|da|du|la|le|[\\p{Lu}][\\p{L}’'\\-]*))*\\s+et\\s+al\\.?\\s*,?\\s*(?:\\(\\s*"+year+'(?:\\s*[,;]\\s*'+year+')*\\s*\\)|'+year+')','gu');
+ for(const m of text.matchAll(narrative))spans.push([m.index,m.index+m[0].length]);
+ if(!spans.length)return {text,map};const skip=new Uint8Array(text.length);for(const [a,b]of spans)skip.fill(1,a,b);let out='',mapped=[];for(let i=0;i<text.length;i++){if(skip[i])continue;const c=text[i];if(/\s/.test(c)&&(!out||out.endsWith(' ')))continue;out+=c;mapped.push(map[i])}if(out.endsWith(' ')){out=out.slice(0,-1);mapped.pop()}return {text:out,map:mapped}
+}
+function mappedText(el){let text='',map=[];const walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT);let n;while(n=walk.nextNode()){if(n.parentElement.closest('[data-citation]'))continue;for(let i=0;i<n.length;i++){const c=n.data[i];if(/\s/.test(c)){if(text&&!text.endsWith(' ')){text+=' ';map.push([n,i])}}else{text+=c;map.push([n,i])}}}if(text.endsWith(' ')){text=text.slice(0,-1);map.pop()}return narrationWithoutCitations(text,map)}
 
 
 function sentences(t){const out=[];let cursor=0;const parts=window.Intl&&Intl.Segmenter?[...new Intl.Segmenter('en',{granularity:'sentence'}).segment(t)].map(x=>x.segment):t.match(/[^.!?]+[.!?]+|[^.!?]+$/g)||[t];for(const part of parts){const v=part.trim();let start=t.indexOf(v,cursor);cursor=start+v.length;let pos=0;while(pos<v.length){let end=Math.min(pos+220,v.length);if(end<v.length){const space=v.lastIndexOf(' ',end);if(space>pos)end=space}out.push({text:v.slice(pos,end),start:start+pos});pos=end;while(v[pos]===' ')pos++}}return out.filter(x=>x.text)}

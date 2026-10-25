@@ -22,3 +22,6 @@ print(a.output)
 
 from add_annotations import enhance
 enhance(a.output)
+
+from validate_reader import validate_reader
+validate_reader(a.output)

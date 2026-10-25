@@ -117,3 +117,6 @@ print(Path(args.output).resolve());print(counts,counter)
 
 from add_annotations import enhance
 enhance(args.output)
+
+from validate_reader import validate_reader
+validate_reader(args.output)
